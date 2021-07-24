@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: arial,tahoma;
+}
+
+body{
+    background-color: #efefef;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-list{
+    min-width: 40%;
+}
+.todo-list .list-head{
+    background-color: rgb(51, 183, 223);
+    color: #fff;
+    padding: 20px 25px;
+    border-radius:10px 10px 0 0 ;
+}
+.todo-list .list-head h2{
+    font-size: 40px;
+    text-align: center;
+}
+.input-box{
+    display: flex;
+    /* border: 1px solid #ccc; */
+}
+.input-box input{
+    width:75%;
+    padding: 10px;
+    font-size: 18px;
+    color: #444;
+    outline: none;
+    border: 0;
+}
+.input-box button{
+    padding: 10px;
+    font-size: 18px;
+    width: 25%;
+    border: none;
+    background-color: #4b4b4b;
+    color: #ffffff;
+    cursor: pointer;
+}
+.list-body li{
+    padding: 10px;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid rgba(204, 204, 204,.3);
+    position: relative;
+    color: #111;
+}
+.list-body li a{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 100%;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .25s;
+}
+.list-body li a:hover{
+    background-color: red;
+    color: #fff;
+}
