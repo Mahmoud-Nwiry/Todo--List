@@ -55,6 +55,14 @@ body{
     border: 1px solid rgba(204, 204, 204,.3);
     position: relative;
     color: #111;
+    transition: .25s;
+}
+.list-body li.check{
+    text-decoration: line-through;
+    background-color: #ddd;
+}
+.list-body li input[type = "checkbox"]{
+    margin-right: 10px;
 }
 .list-body li a{
     position: absolute;
