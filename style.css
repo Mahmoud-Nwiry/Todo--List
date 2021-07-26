@@ -29,15 +29,29 @@ body{
 }
 .input-box{
     display: flex;
-    /* border: 1px solid #ccc; */
 }
-.input-box input{
-    width:75%;
+.input-box input[type="text"]{
+    width:60%;
     padding: 10px;
     font-size: 18px;
     color: #444;
     outline: none;
     border: 0;
+}
+.input-box input[type="number"]{
+    width: 10%;
+    border: 0;
+    border-left:1px solid #ccc ;
+    padding-left: 5px;
+    outline: none;
+}
+select{
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    background-color: #ddd;
+}
+option{
+    padding: 5px;
 }
 .input-box button{
     padding: 10px;
@@ -49,6 +63,7 @@ body{
     cursor: pointer;
 }
 .list-body li{
+
     padding: 10px;
     list-style: none;
     background-color: #fff;
@@ -58,11 +73,24 @@ body{
     transition: .25s;
 }
 .list-body li.check{
-    text-decoration: line-through;
     background-color: #ddd;
+}
+.list-body li.check span,
+.list-body li.check small{
+    text-decoration: line-through;
+}
+.list-body li.finish{
+    background-color: rgb(235, 144, 144);
+    color: #777777ff;
 }
 .list-body li input[type = "checkbox"]{
     margin-right: 10px;
+}
+.list-body li small{
+    display: inline-block;
+    text-align: center;
+    padding-left: 25px;
+    font-size: 10px;
 }
 .list-body li a{
     position: absolute;
