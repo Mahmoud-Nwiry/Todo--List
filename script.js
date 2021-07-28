@@ -19,10 +19,9 @@ liEements.forEach(el=>{
     // change the item to array has text and time
     let element = el.split('$$');
 
-    if(el.trim() !== "" && el !== "null" && el !== null){
-
+    if(el.trim() !== "" && el !== "null" && el !== null)
         creatlistItem(element[0], element[1], true);
-    }
+    
 })
 
 // when clicked in the add button
@@ -80,7 +79,7 @@ function creatlistItem(text, time, old = true){
             li.classList.add('finish');
             clearInterval(timeCalcLoop);
         }
-    },1000);
+    },100);
     
     
     // creat x button
@@ -198,7 +197,7 @@ function calcTime(time){
     // time => Remaining time in fractions of seconds
     // stri => string and value will to be result function in secound call
     // num => The number of times the function is played
-    function endTime(time  , stri = '' , num = 2){
+    function endTime(time  , stri = '' , num = 3){
         if(num > 0){
             num--;
             // change seconds to (Days,Hours,Minutes,Seconds,Finished)
