@@ -55,7 +55,7 @@ function creatlistItem(text, time, old = true){
     // if user finiched it will add class check
     if(text.includes('finIshed')){
         text = text.replace(/finIshed/g,'');
-        li.classList.add("check");
+        li.classList.add("done");
         checkbox.checked = true;
     }
     
@@ -66,17 +66,37 @@ function creatlistItem(text, time, old = true){
     // create small tag and add time to it
     let timeEl = document.createElement('small');
     timeEl.textContent = calcTime(time);
-    if(timeEl.textContent === 'Finished')
+
+    // Chick if the time Ended
+    if(timeEl.textContent === 'time is over')
         li.classList.add('finish');
+
+    // calc time evrey second
+    let timeCalcLoop = setInterval(()=>{
+
+        timeEl.textContent = calcTime(time);
+        // Chick if the time Ended will stop loop
+        if(timeEl.textContent === 'time is over'){
+            li.classList.add('finish');
+            clearInterval(timeCalcLoop);
+        }
+    },1000);
+    
     
     // creat x button
     let x = document.createElement("a");
     x.textContent = "x";
     x.classList.add("remove");
     
+    // if the li Done
+    if(li.classList.contains("done")){
+        clearInterval(timeCalcLoop);
+        timeEl.textContent = 'Done'
+    }
     // add elements to li
     li.appendChild(checkbox);
     li.appendChild(spanLi);
+    li.appendChild(timeEl)
     li.appendChild(timeEl)
     li.appendChild(x);
     // add li to list
@@ -131,19 +151,19 @@ function finishedItem(finish){
         // if user select true 
         if(finish.checked){
             // add class
-            finish.parentElement.classList.add("check");
+            finish.parentElement.classList.add("done");
             // get li text
             let str = "^"+finish.parentElement.querySelector('span').textContent;
             // edit the text in the storage and add to it finIshed word
+            if(!liArr.includes(`${str}finIshed`))
             liArr = liArr.replace(str, `${str}finIshed`);
             // save the values
             localStorage.setItem('liArr',liArr);
-
         }
         // if user select true 
         else{
             // remove class
-            finish.parentElement.classList.remove("check");
+            finish.parentElement.classList.remove("done");
             // get li text
             let str = "^"+finish.parentElement.querySelector('span').textContent;
             // remove finIshed word from the storage
@@ -173,16 +193,38 @@ function calcTime(time){
     let now = Date.now();
     time = (time - now);
 
-    // change seconds to (Days,Hours,Minutes,Seconds,Finished)
-    if(time > 86400000){
-        return `${Math.floor(time / 86400000)} Days`;
-    }else if(time > 3600000){
-        return `${Math.floor(time / 3600000)} Hours`;
-    }else if(time > 60000){
-        return `${Math.floor(time / 60000)} Minutes`;
-    }else if(time > 0){
-        return `${Math.floor(time / 1000)} Seconds`
-    }else{
-        return `Finished`;
+    // string and its value will to bo result function
+    let str = endTime(time);
+    // time => Remaining time in fractions of seconds
+    // stri => string and value will to be result function in secound call
+    // num => The number of times the function is played
+    function endTime(time  , stri = '' , num = 2){
+        if(num > 0){
+            num--;
+            // change seconds to (Days,Hours,Minutes,Seconds,Finished)
+            if(time > 86400000){
+                if(time % 86400000 > 0){
+                    return stri +=`${Math.floor(time / 86400000)}d ` + endTime(time % 86400000 , stri ,num);
+                }
+            }else if(time > 3600000){
+                if(time % 3600000 > 0){
+                    return stri +=`${Math.floor(time / 3600000)}h ` + endTime(time % 3600000 , stri ,num);
+                }
+            }else if(time > 60000){
+                if(time % 60000 > 0){
+                    return stri +=`${Math.floor(time / 60000)}m ` + endTime(time % 60000 , stri ,num);
+                }
+            }else if(time > 0){
+                if(time % 1000 > 0){
+                    return stri +=`${Math.floor(time / 1000)}s. `;
+                }
+            }
+        }
+        return stri;
     }
+    // if Remaining time <= 0 
+    if(time <= 0){
+        return `time is over`;
+    }
+    return str;
 }
