@@ -215,9 +215,7 @@ function calcTime(time){
                     return stri +=`${Math.floor(time / 60000)}m ` + endTime(time % 60000 , stri ,num);
                 }
             }else if(time > 0){
-                if(time % 1000 > 0){
                     return stri +=`${Math.floor(time / 1000)}s. `;
-                }
             }
         }
         return stri;
